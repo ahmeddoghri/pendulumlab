@@ -1,18 +1,22 @@
 # pendulumlab
 
-An inverted pendulum benchmark that keeps the robotics part real: physics loop,
-controller, CEM policy search, tests, and a reward curve you can regenerate.
+A pendulum that refuses to stay up, and a controller that learns to hold it there without a physics engine the size of a small country.
 
 ![CI](https://github.com/ahmeddoghri/pendulumlab/actions/workflows/ci.yml/badge.svg)
 ![python](https://img.shields.io/badge/python-3.9%2B-blue)
 ![deps](https://img.shields.io/badge/runtime%20deps-none-success)
 ![license](https://img.shields.io/badge/license-MIT-black)
 
-The point is not to beat MuJoCo on realism. The point is to make the control
-stack inspectable. You get a small nonlinear pendulum, a linear torque policy,
-and a cross-entropy method loop that tunes the gains from rollouts. The same
-idea sits underneath plenty of model-predictive control and sim-to-real work,
-but here it is short enough to read before coffee goes cold.
+Most robot learning demos want you to install a simulator before you see a
+single reward curve, which is a strange way to teach anyone how control
+actually works. pendulumlab skips the download. It is a nonlinear pendulum, a
+linear torque policy, and a cross-entropy method loop that tunes the gains
+from rollouts, all short enough to read before your coffee goes cold.
+
+This is not trying to out-realism MuJoCo or Isaac Lab. Those are for when you
+need the pendulum to also have friction, sensor noise, and a PhD thesis
+attached. This is for when you want to actually see the control loop instead
+of trusting that it exists somewhere inside a config file.
 
 ## Run it
 
@@ -23,16 +27,12 @@ pip install -e ".[dev]"
 python -m pendulumlab.benchmark
 ```
 
-The command writes:
-
-```text
-artifacts/reward_curve.csv
-artifacts/reward_curve.svg
-```
+This writes `artifacts/reward_curve.csv` and `artifacts/reward_curve.svg`,
+which is more receipts than most control demos ever hand you.
 
 ## Verified benchmark
 
-These numbers were generated locally with `python -m pendulumlab.benchmark`:
+Generated locally with `python -m pendulumlab.benchmark`:
 
 ```text
 controller        avg_return
@@ -43,9 +43,15 @@ reward_gain           271.68
 final_window_avg       1.000
 ```
 
+Do nothing and the pendulum face-plants at a return of -54.30. A hand-tuned PD
+controller gets it to 137.39, which is the control-theory equivalent of
+riding a bike with training wheels. CEM, learning entirely from its own
+rollouts with nobody hand-turning a dial, lands at 217.38 and keeps the
+pendulum upright for almost the entire final stretch.
+
 ## Research trail
 
-This project is a small, dependency-light take on current robot learning work:
+A small, dependency-light take on where robot learning actually is right now:
 
 - MuJoCo Playground, 2025: https://arxiv.org/abs/2502.08844
 - Isaac Lab, 2025: https://arxiv.org/abs/2511.04831
