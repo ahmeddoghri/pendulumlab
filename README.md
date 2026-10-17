@@ -2,9 +2,13 @@
 
 A pendulum that refuses to stay up, and a controller that learns to hold it there without a physics engine the size of a small country.
 
+[![tests](https://github.com/ahmeddoghri/pendulumlab/actions/workflows/tests.yml/badge.svg)](https://github.com/ahmeddoghri/pendulumlab/actions/workflows/tests.yml)
 ![python](https://img.shields.io/badge/python-3.9%2B-blue)
 ![deps](https://img.shields.io/badge/runtime%20deps-none-success)
 ![license](https://img.shields.io/badge/license-MIT-black)
+[![case study](https://img.shields.io/badge/case%20study-adoghri.com-e0703e)](https://adoghri.com/project-23.html)
+
+![pendulumlab](docs/cover.jpg)
 
 Most robot learning demos want you to install a simulator before you see a
 single reward curve, which is a strange way to teach anyone how control
